@@ -17,18 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
+      # Skripta koristi samo standardnu Python biblioteku, a python3 već
+      # postoji na GitHub runneru, pa setup-python nije potreban.
       - name: Proveri obaveštenja
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           KEYWORDS_REGEX: ${{ vars.KEYWORDS_REGEX }}
-        run: python bg_voz_notify.py
+        run: python3 bg_voz_notify.py
 
       - name: Sačuvaj stanje
         run: |
